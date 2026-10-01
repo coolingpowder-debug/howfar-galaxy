@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# ตกแต่ง CSS เพิ่มความสวยงามสไตล์อวกาศ
+# ตกแต่ง CSS เพิ่มความสวยงามสไตล์อวกาศ (รวมถึงเอฟเฟกต์เงาดาวสีดำสนิท)
 st.markdown("""
     <style>
     .main {
@@ -30,7 +30,7 @@ st.markdown("""
         font-weight: bold;
     }
     .game-box {
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: rgba(255, 255, 255, 0.95);
         border: 2px solid #4a0e4e;
         padding: 25px;
         border-radius: 15px;
@@ -41,10 +41,18 @@ st.markdown("""
         color: #240046;
         font-weight: bold;
     }
+    /* เอฟเฟกต์ทำเงาดาวให้เป็นสีดำสนิท (Silhouette) */
+    .planet-shadow {
+        filter: brightness(0%) contrast(200%);
+        width: 100%;
+        max-height: 200px;
+        object-fit: contain;
+        border-radius: 10px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# ข้อมูลดาวเคราะห์พร้อมคำใบ้สำหรับเกม
+# ข้อมูลดาวเคราะห์พร้อมคำใบ้ ตัวอักษรตัวแรก และเงา
 planets = {
     "ดาวพุธ (Mercury)": {
         "icon": "☿️",
@@ -56,7 +64,8 @@ planets = {
         "fun_fact": "พื้นผิวมีหลุมอุกกาบาตคล้ายดวงจันทร์ และมีอุณหภูมิร้อนจัดสลับหนาวจัด",
         "image": "https://images-assets.nasa.gov/image/PIA16847/PIA16847~orig.jpg",
         "bar": "🌍---🪐 (ใกล้กว่าโลก)",
-        "clue": "ฉันอยู่ใกล้ดวงอาทิตย์ที่สุด มีขนาดเล็กจิ๋ว และพื้นผิวเต็มไปด้วยหลุมอุกกาบาตคล้ายดวงจันทร์!"
+        "clue": "ฉันอยู่ใกล้ดวงอาทิตย์ที่สุด มีขนาดเล็กจิ๋ว และพื้นผิวเต็มไปด้วยหลุมอุกกาบาตคล้ายดวงจันทร์!",
+        "first_letter": "M (ภาษาอังกฤษ) หรือ พ (พุธ)"
     },
     "ดาวศุกร์ (Venus)": {
         "icon": "♀️",
@@ -68,7 +77,8 @@ planets = {
         "fun_fact": "หมุนรอบตัวเองกลับทิศทางกับดาวเคราะห์ส่วนใหญ่ และมีชั้นบรรยากาศหนาทึบ",
         "image": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg",
         "bar": "🌍---🪐 (ใกล้กว่ามาก)",
-        "clue": "ฉันมีขนาดใกล้เคียงกับโลกมากที่สุด แต่กลับร้อนระอุที่สุดในระบบสุริยะแถมยังหมุนกลับทิศทาง!"
+        "clue": "ฉันมีขนาดใกล้เคียงกับโลกมากที่สุด แต่กลับร้อนระอุที่สุดในระบบสุริยะแถมยังหมุนกลับทิศทาง!",
+        "first_letter": "V (ภาษาอังกฤษ) หรือ ศ (ศุกร์)"
     },
     "ดาวอังคาร (Mars)": {
         "icon": "♂️",
@@ -80,7 +90,8 @@ planets = {
         "fun_fact": "มีภูเขาไฟที่สูงที่สุดในระบบสุริยะชื่อ โอลิมปัส มอนส์",
         "image": "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg",
         "bar": "🌍-----🪐",
-        "clue": "ฉันคือดาวเคราะห์สีแดง มีภูเขาไฟที่สูงที่สุดในระบบสุริยะ และนักวิทยาศาสตร์กำลังสนใจไปตั้งถิ่นฐาน!"
+        "clue": "ฉันคือดาวเคราะห์สีแดง มีภูเขาไฟที่สูงที่สุดในระบบสุริยะ และนักวิทยาศาสตร์กำลังสนใจไปตั้งถิ่นฐาน!",
+        "first_letter": "M (ภาษาอังกฤษ) หรือ อ (อังคาร)"
     },
     "ดาวพฤหัสบดี (Jupiter)": {
         "icon": "♃",
@@ -92,7 +103,8 @@ planets = {
         "fun_fact": "มีจุดแดงใหญ่ (Great Red Spot) ซึ่งเป็นพายุหมุนยักษ์ที่มีขนาดใหญ่กว่าโลก",
         "image": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg",
         "bar": "🌍------------🪐",
-        "clue": "ฉันคือพี่ใหญ่แห่งระบบสุริยะ เป็นดาวเคราะห์แก๊สยักษ์ที่มีพายุจุดแดงใหญ่หมุนวนอยู่!"
+        "clue": "ฉันคือพี่ใหญ่แห่งระบบสุริยะ เป็นดาวเคราะห์แก๊สยักษ์ที่มีพายุจุดแดงใหญ่หมุนวนอยู่!",
+        "first_letter": "J (ภาษาอังกฤษ) หรือ พ (พฤหัสบดี)"
     },
     "ดาวเสาร์ (Saturn)": {
         "icon": "♄",
@@ -104,7 +116,8 @@ planets = {
         "fun_fact": "มีความหนาแน่นน้อยกว่าน้ำ ถ้ามีอ่างน้ำขนาดใหญ่พอก็จะลอยน้ำได้",
         "image": "https://images-assets.nasa.gov/image/PIA01384/PIA01384~orig.jpg",
         "bar": "🌍-----------------🪐",
-        "clue": "ฉันโดดเด่นไม่เหมือนใครเพราะมีวงแหวนน้ำแข็งล้อมรอบสวยงาม และมีความหนาแน่นน้อยจนลอยน้ำได้!"
+        "clue": "ฉันโดดเด่นไม่เหมือนใครเพราะมีวงแหวนน้ำแข็งล้อมรอบสวยงาม และมีความหนาแน่นน้อยจนลอยน้ำได้!",
+        "first_letter": "S (ภาษาอังกฤษ) หรือ ส (เสาร์)"
     },
     "ดาวยูเรนัส (Uranus)": {
         "icon": "♅",
@@ -116,7 +129,8 @@ planets = {
         "fun_fact": "หมุนรอบตัวเองในลักษณะ 'นอนกลิ้ง' ไปบนวงโคจร",
         "image": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg",
         "bar": "🌍------------------------------🪐",
-        "clue": "ฉันเป็นดาวเคราะห์สีฟ้าอมเขียวที่แปลกประหลาด เพราะหมุนรอบตัวเองในลักษณะ 'นอนกลิ้ง'!"
+        "clue": "ฉันเป็นดาวเคราะห์สีฟ้าอมเขียวที่แปลกประหลาด เพราะหมุนรอบตัวเองในลักษณะ 'นอนกลิ้ง'!",
+        "first_letter": "U (ภาษาอังกฤษ) หรือ ย (ยูเรนัส)"
     },
     "ดาวเนปจูน (Neptune)": {
         "icon": "♆",
@@ -128,7 +142,8 @@ planets = {
         "fun_fact": "มีกระแสลมที่รุนแรงและเร็วที่สุดในระบบสุริยะ",
         "image": "https://images-assets.nasa.gov/image/PIA01492/PIA01492~orig.jpg",
         "bar": "🌍----------------------------------------🪐",
-        "clue": "ฉันเป็นดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลสุดขอบระบบสุริยะ และมีกระแสลมที่รุนแรงที่สุด!"
+        "clue": "ฉันเป็นดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลสุดขอบระบบสุริยะ และมีกระแสลมที่รุนแรงที่สุด!",
+        "first_letter": "N (ภาษาอังกฤษ) หรือ น (เนปจูน)"
     }
 }
 
@@ -151,21 +166,29 @@ st.title("🌌 สำรวจระบบสุริยะของเรา")
 st.write("เรียนรู้ระยะห่าง ขนาดเปรียบเทียบ และชมภาพถ่ายของดาวเคราะห์แต่ละดวงกับ **โลก** กันเถอะ!")
 st.divider()
 
-# --- ส่วนมินิเกมทายดาวเคราะห์ ---
-st.subheader("🎮 มินิเกม: ทายซิฉันคือดาวอะไร?")
+# --- ส่วนมินิเกมทายเงาดาวเคราะห์ ---
+st.subheader("🎮 มินิเกม: ทายเงาดาวเคราะห์ปริศนา")
 
 if "game_planet" not in st.session_state:
     st.session_state["game_planet"] = random.choice(list(planets.keys()))
 
 target_planet = st.session_state["game_planet"]
-target_clue = planets[target_planet]["clue"]
+target_data = planets[target_planet]
 
-st.markdown(f"""
-    <div class="game-box">
-        <h3 style="color: #240046; margin-top: 0;">🔍 คำใบ้ปริศนา:</h3>
-        <p class="game-clue-text">"{target_clue}"</p>
-    </div>
-""", unsafe_allow_html=True)
+# จัดหน้าจอแสดงเงาดาวและคำใบ้
+col_shadow, col_clue = st.columns([1, 2])
+
+with col_shadow:
+    st.markdown("**🌑 เงาดาวปริศนา:**")
+    st.markdown(f'<img src="{target_data["image"]}" class="planet-shadow">', unsafe_allow_html=True)
+
+with col_clue:
+    st.markdown(f"""
+        <div class="game-box" style="margin-bottom: 10px; padding: 15px;">
+            <p style="color: #240046; margin: 0; font-size: 1.1rem;"><b>🔍 คำใบ้:</b> {target_data['clue']}</p>
+            <p style="color: #d90429; margin: 5px 0 0 0; font-size: 1rem;"><b>🔤 ตัวอักษรตัวแรก:</b> {target_data['first_letter']}</p>
+        </div>
+    """, unsafe_allow_html=True)
 
 col_game1, col_game2, col_game3 = st.columns([2, 1, 1])
 

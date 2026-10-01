@@ -31,7 +31,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ข้อมูลดาวเคราะห์ (ปรับลิงก์รูปภาพใหม่ให้แสดงผลแน่นอน)
+# ข้อมูลดาวเคราะห์ (เปลี่ยนมาใช้ลิงก์ตรงและปลอดภัยสำหรับแสดงผลเว็บ)
 planets = {
     "ดาวพุธ (Mercury)": {
         "icon": "☿️",
@@ -41,7 +41,7 @@ planets = {
         "gravity": 0.38,
         "desc": "ดาวเคราะห์ที่อยู่ใกล้ดวงอาทิตย์ที่สุดและมีขนาดเล็กที่สุดในระบบสุริยะ",
         "fun_fact": "พื้นผิวมีหลุมอุกกาบาตคล้ายดวงจันทร์ และมีอุณหภูมิร้อนจัดสลับหนาวจัด",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_color_-_Prockter07_centered.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Mercury_in_color_-_Prockter07_centered.jpg/600px-Mercury_in_color_-_Prockter07_centered.jpg"
     },
     "ดาวศุกร์ (Venus)": {
         "icon": "♀️",
@@ -51,7 +51,7 @@ planets = {
         "gravity": 0.91,
         "desc": "ดาวเคราะห์ที่มีขนาดใกล้เคียงกับโลกมากที่สุด แต่ร้อนที่สุดในระบบสุริยะ",
         "fun_fact": "หมุนรอบตัวเองกลับทิศทางกับดาวเคราะห์ส่วนใหญ่ และมีชั้นบรรยากาศหนาทึบ",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Venus-real_color.jpg/600px-Venus-real_color.jpg"
     },
     "ดาวอังคาร (Mars)": {
         "icon": "♂️",
@@ -61,7 +61,7 @@ planets = {
         "gravity": 0.38,
         "desc": "ดาวเคราะห์แดงที่เป็นเป้าหมายสำคัญในการสำรวจสิ่งมีชีวิตนอกโลก",
         "fun_fact": "มีภูเขาไฟที่สูงที่สุดในระบบสุริยะชื่อ โอลิมปัส มอนส์",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/600px-OSIRIS_Mars_true_color.jpg"
     },
     "ดาวพฤหัสบดี (Jupiter)": {
         "icon": "♃",
@@ -71,7 +71,7 @@ planets = {
         "gravity": 2.34,
         "desc": "ดาวเคราะห์ที่ใหญ่ที่สุดในระบบสุริยะของเรา",
         "fun_fact": "มีจุดแดงใหญ่ (Great Red Spot) ซึ่งเป็นพายุหมุนยักษ์ที่มีขนาดใหญ่กว่าโลก",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg/600px-Jupiter_and_its_shrunken_Great_Red_Spot.jpg"
     },
     "ดาวเสาร์ (Saturn)": {
         "icon": "♄",
@@ -81,7 +81,7 @@ planets = {
         "gravity": 1.06,
         "desc": "โดดเด่นด้วยวงแหวนน้ำแข็งขนาดใหญ่ที่สวยงามและสังเกตเห็นได้ชัดเจน",
         "fun_fact": "มีความหนาแน่นน้อยกว่าน้ำ ถ้ามีอ่างน้ำขนาดใหญ่พอก็จะลอยน้ำได้",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox_-_Flickr_-_NASA_Goddard_Photo_and_Video.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox_-_Flickr_-_NASA_Goddard_Photo_and_Video.jpg/600px-Saturn_during_Equinox_-_Flickr_-_NASA_Goddard_Photo_and_Video.jpg"
     },
     "ดาวยูเรนัส (Uranus)": {
         "icon": "♅",
@@ -91,7 +91,7 @@ planets = {
         "gravity": 0.92,
         "desc": "ดาวเคราะห์สีฟ้าอมเขียวที่มีแกนเอียงราบเกือบขนานกับวงโคจร",
         "fun_fact": "หมุนรอบตัวเองในลักษณะ 'นอนกลิ้ง' ไปบนวงโคจร",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Uranus2.jpg/600px-Uranus2.jpg"
     },
     "ดาวเนปจูน (Neptune)": {
         "icon": "♆",
@@ -101,14 +101,14 @@ planets = {
         "gravity": 1.19,
         "desc": "ดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลจากดวงอาทิตย์ที่สุดในระบบสุริยะ",
         "fun_fact": "มีกระแสลมที่รุนแรงและเร็วที่สุดในระบบสุริยะ",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full_-_Voyager_2_%2829347980848%29_%28cropped%29.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Neptune_Full_-_Voyager_2_%2829347980848%29_%28cropped%29.jpg/600px-Neptune_Full_-_Voyager_2_%2829347980848%29_%28cropped%29.jpg"
     }
 }
 
 # Sidebar สำหรับฟีเจอร์คำนวณน้ำหนัก
 st.sidebar.header("⚖️ เครื่องคำนวณน้ำหนักนอกโลก")
 user_weight = st.sidebar.number_input("ใส่น้ำหนักของคุณบนโลก (กิโลกรัม):", min_value=1.0, max_value=300.0, value=60.0)
-st.sidebar.write("น้ำหนักของคุณบนดาวดวงอื่น ๆ จะเปลี่ยนไปตามแรงโน้มถ่วง:")
+st.sidebar.write("น้ำหนักของคุณบนดาวดวงอื่น ๆ:")
 for planet_name, info in planets.items():
     calculated_weight = user_weight * info["gravity"]
     st.sidebar.text(f"{planet_name.split(' ')[0]}: {calculated_weight:.1f} กก.")

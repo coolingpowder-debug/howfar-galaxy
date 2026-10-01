@@ -28,18 +28,10 @@ st.markdown("""
         color: #00d2ff;
         font-weight: bold;
     }
-    .planet-img {
-        width: 100%;
-        max-height: 350px;
-        object-fit: contain;
-        border-radius: 10px;
-        background-color: rgba(0, 0, 0, 0.2);
-        padding: 10px;
-    }
     </style>
 """, unsafe_allow_html=True)
 
-# ข้อมูลดาวเคราะห์ (ใช้ลิงก์ภาพที่ปลอดภัยและแสดงผลแน่นอน)
+# ข้อมูลดาวเคราะห์ (ใช้ลิงก์ภาพที่รองรับการแสดงผลผ่าน st.image โดยตรง)
 planets = {
     "ดาวพุธ (Mercury)": {
         "icon": "☿️",
@@ -49,7 +41,7 @@ planets = {
         "gravity": 0.38,
         "desc": "ดาวเคราะห์ที่อยู่ใกล้ดวงอาทิตย์ที่สุดและมีขนาดเล็กที่สุดในระบบสุริยะ",
         "fun_fact": "พื้นผิวมีหลุมอุกกาบาตคล้ายดวงจันทร์ และมีอุณหภูมิร้อนจัดสลับหนาวจัด",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/3/30/Mercury_in_color_%28reprocessed%29.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_color_-_Prockter07_centered.jpg"
     },
     "ดาวศุกร์ (Venus)": {
         "icon": "♀️",
@@ -59,7 +51,7 @@ planets = {
         "gravity": 0.91,
         "desc": "ดาวเคราะห์ที่มีขนาดใกล้เคียงกับโลกมากที่สุด แต่ร้อนที่สุดในระบบสุริยะ",
         "fun_fact": "หมุนรอบตัวเองกลับทิศทางกับดาวเคราะห์ส่วนใหญ่ และมีชั้นบรรยากาศหนาทึบ",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/8/85/Venus_globe.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg"
     },
     "ดาวอังคาร (Mars)": {
         "icon": "♂️",
@@ -79,7 +71,7 @@ planets = {
         "gravity": 2.34,
         "desc": "ดาวเคราะห์ที่ใหญ่ที่สุดในระบบสุริยะของเรา",
         "fun_fact": "มีจุดแดงใหญ่ (Great Red Spot) ซึ่งเป็นพายุหมุนยักษ์ที่มีขนาดใหญ่กว่าโลก",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg"
     },
     "ดาวเสาร์ (Saturn)": {
         "icon": "♄",
@@ -89,7 +81,7 @@ planets = {
         "gravity": 1.06,
         "desc": "โดดเด่นด้วยวงแหวนน้ำแข็งขนาดใหญ่ที่สวยงามและสังเกตเห็นได้ชัดเจน",
         "fun_fact": "มีความหนาแน่นน้อยกว่าน้ำ ถ้ามีอ่างน้ำขนาดใหญ่พอก็จะลอยน้ำได้",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox_-_Flickr_-_NASA_Goddard_Photo_and_Video.jpg"
+        "image": "https://images-assets.nasa.gov/image/PIA01384/PIA01384~orig.jpg"
     },
     "ดาวยูเรนัส (Uranus)": {
         "icon": "♅",
@@ -129,7 +121,7 @@ st.divider()
 # แถบคลิกเลือกดาวเคราะห์หลัก
 selected_planet = st.selectbox("🪐 เลือกดาวเคราะห์ที่คุณต้องการสำรวจ:", list(planets.keys()))
 
-# จัดหน้าจอแสดงผลข้อมูลคู่กับรูปภาพ (ใช้ HTML Tag เพื่อบังคับโหลดรูปภาพให้แสดงผลชัวร์)
+# จัดหน้าจอแสดงผลข้อมูลคู่กับรูปภาพโดยใช้ฟังก์ชันทางการของ Streamlit
 p_data = planets[selected_planet]
 col1, col2 = st.columns([1.2, 1])
 
@@ -149,12 +141,7 @@ with col1:
     """, unsafe_allow_html=True)
 
 with col2:
-    st.markdown(f"""
-        <div style="text-align: center; padding-top: 20px;">
-            <img src="{p_data['image']}" class="planet-img">
-            <p style="color: #a0a0a0; font-size: 0.9rem; margin-top: 10px;">ภาพถ่าย {selected_planet}</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.image(p_data["image"], caption=f"ภาพถ่าย {selected_planet}", use_container_width=True)
 
 # ส่วนเปรียบเทียบภาพรวมทั้งหมดในรูปตาราง
 st.subheader("📊 ตารางเปรียบเทียบสรุปขนาดและระยะทางกับโลก")

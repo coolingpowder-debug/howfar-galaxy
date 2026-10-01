@@ -31,7 +31,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ข้อมูลดาวเคราะห์
+# ข้อมูลดาวเคราะห์พร้อมลิงก์ภาพที่เสถียร
 planets = {
     "ดาวพุธ (Mercury)": {
         "icon": "☿️",
@@ -41,7 +41,7 @@ planets = {
         "gravity": 0.38,
         "desc": "ดาวเคราะห์ที่อยู่ใกล้ดวงอาทิตย์ที่สุดและมีขนาดเล็กที่สุดในระบบสุริยะ",
         "fun_fact": "พื้นผิวมีหลุมอุกกาบาตคล้ายดวงจันทร์ และมีอุณหภูมิร้อนจัดสลับหนาวจัด",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_color_-_Prockter07_centered.jpg",
+        "image": "https://images-assets.nasa.gov/image/PIA16847/PIA16847~orig.jpg",
         "bar": "🌍---🪐 (ใกล้กว่าโลก)"
     },
     "ดาวศุกร์ (Venus)": {
@@ -107,7 +107,7 @@ planets = {
         "gravity": 1.19,
         "desc": "ดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลจากดวงอาทิตย์ที่สุดในระบบสุริยะ",
         "fun_fact": "มีกระแสลมที่รุนแรงและเร็วที่สุดในระบบสุริยะ",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full_-_Voyager_2_%2829347980848%29_%28cropped%29.jpg",
+        "image": "https://images-assets.nasa.gov/image/PIA01492/PIA01492~orig.jpg",
         "bar": "🌍----------------------------------------🪐"
     }
 }
@@ -150,7 +150,7 @@ with col1:
 with col2:
     st.image(p_data["image"], caption=f"ภาพถ่าย {selected_planet}", use_container_width=True)
 
-# ส่วนเปรียบเทียบภาพรวมทั้งหมดในรูปตาราง พร้อมแผนภาพเปรียบเทียบระยะทาง
+# ส่วนเปรียบเทียบภาพรวมทั้งหมดในรูปตาราง พร้อมแผนภาพเปรียบเทียบระยะทางกับโลก
 st.subheader("📊 ตารางเปรียบเทียบสรุปขนาดและระยะทางกับโลก")
 df = pd.DataFrame([
     {

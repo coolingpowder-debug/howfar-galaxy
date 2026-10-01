@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# ตกแต่ง CSS เพิ่มความสวยงามสไตล์อวกาศ (รวมถึงเอฟเฟกต์เงาดาวสีดำสนิท)
+# ตกแต่ง CSS เพิ่มความสวยงามสไตล์อวกาศ
 st.markdown("""
     <style>
     .main {
@@ -29,30 +29,28 @@ st.markdown("""
         color: #00d2ff;
         font-weight: bold;
     }
-    .game-box {
+    .game-container {
         background-color: rgba(255, 255, 255, 0.95);
         border: 2px solid #4a0e4e;
-        padding: 25px;
+        padding: 20px;
         border-radius: 15px;
         margin-bottom: 25px;
-    }
-    .game-clue-text {
-        font-size: 1.2rem;
         color: #240046;
-        font-weight: bold;
     }
-    /* เอฟเฟกต์ทำเงาดาวให้เป็นสีดำสนิท (Silhouette) */
-    .planet-shadow {
-        filter: brightness(0%) contrast(200%);
+    /* ปรับเงาดาวให้เห็นเค้าโครงและวงแหวนชัดเจนบนพื้นสว่าง */
+    .planet-silhouette {
+        filter: brightness(0%) contrast(100%) opacity(85%);
         width: 100%;
-        max-height: 200px;
+        max-height: 220px;
         object-fit: contain;
+        background-color: #f0f0f0;
+        padding: 10px;
         border-radius: 10px;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# ข้อมูลดาวเคราะห์พร้อมคำใบ้ ตัวอักษรตัวแรก และเงา
+# ข้อมูลดาวเคราะห์พร้อมคำใบ้ ตัวอักษรภาษาอังกฤษตัวแรก และเงา
 planets = {
     "ดาวพุธ (Mercury)": {
         "icon": "☿️",
@@ -65,7 +63,7 @@ planets = {
         "image": "https://images-assets.nasa.gov/image/PIA16847/PIA16847~orig.jpg",
         "bar": "🌍---🪐 (ใกล้กว่าโลก)",
         "clue": "ฉันอยู่ใกล้ดวงอาทิตย์ที่สุด มีขนาดเล็กจิ๋ว และพื้นผิวเต็มไปด้วยหลุมอุกกาบาตคล้ายดวงจันทร์!",
-        "first_letter": "M (ภาษาอังกฤษ) หรือ พ (พุธ)"
+        "first_letter": "M"
     },
     "ดาวศุกร์ (Venus)": {
         "icon": "♀️",
@@ -78,7 +76,7 @@ planets = {
         "image": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg",
         "bar": "🌍---🪐 (ใกล้กว่ามาก)",
         "clue": "ฉันมีขนาดใกล้เคียงกับโลกมากที่สุด แต่กลับร้อนระอุที่สุดในระบบสุริยะแถมยังหมุนกลับทิศทาง!",
-        "first_letter": "V (ภาษาอังกฤษ) หรือ ศ (ศุกร์)"
+        "first_letter": "V"
     },
     "ดาวอังคาร (Mars)": {
         "icon": "♂️",
@@ -91,7 +89,7 @@ planets = {
         "image": "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg",
         "bar": "🌍-----🪐",
         "clue": "ฉันคือดาวเคราะห์สีแดง มีภูเขาไฟที่สูงที่สุดในระบบสุริยะ และนักวิทยาศาสตร์กำลังสนใจไปตั้งถิ่นฐาน!",
-        "first_letter": "M (ภาษาอังกฤษ) หรือ อ (อังคาร)"
+        "first_letter": "M"
     },
     "ดาวพฤหัสบดี (Jupiter)": {
         "icon": "♃",
@@ -104,7 +102,7 @@ planets = {
         "image": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg",
         "bar": "🌍------------🪐",
         "clue": "ฉันคือพี่ใหญ่แห่งระบบสุริยะ เป็นดาวเคราะห์แก๊สยักษ์ที่มีพายุจุดแดงใหญ่หมุนวนอยู่!",
-        "first_letter": "J (ภาษาอังกฤษ) หรือ พ (พฤหัสบดี)"
+        "first_letter": "J"
     },
     "ดาวเสาร์ (Saturn)": {
         "icon": "♄",
@@ -117,7 +115,7 @@ planets = {
         "image": "https://images-assets.nasa.gov/image/PIA01384/PIA01384~orig.jpg",
         "bar": "🌍-----------------🪐",
         "clue": "ฉันโดดเด่นไม่เหมือนใครเพราะมีวงแหวนน้ำแข็งล้อมรอบสวยงาม และมีความหนาแน่นน้อยจนลอยน้ำได้!",
-        "first_letter": "S (ภาษาอังกฤษ) หรือ ส (เสาร์)"
+        "first_letter": "S"
     },
     "ดาวยูเรนัส (Uranus)": {
         "icon": "♅",
@@ -130,7 +128,7 @@ planets = {
         "image": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg",
         "bar": "🌍------------------------------🪐",
         "clue": "ฉันเป็นดาวเคราะห์สีฟ้าอมเขียวที่แปลกประหลาด เพราะหมุนรอบตัวเองในลักษณะ 'นอนกลิ้ง'!",
-        "first_letter": "U (ภาษาอังกฤษ) หรือ ย (ยูเรนัส)"
+        "first_letter": "U"
     },
     "ดาวเนปจูน (Neptune)": {
         "icon": "♆",
@@ -143,7 +141,7 @@ planets = {
         "image": "https://images-assets.nasa.gov/image/PIA01492/PIA01492~orig.jpg",
         "bar": "🌍----------------------------------------🪐",
         "clue": "ฉันเป็นดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลสุดขอบระบบสุริยะ และมีกระแสลมที่รุนแรงที่สุด!",
-        "first_letter": "N (ภาษาอังกฤษ) หรือ น (เนปจูน)"
+        "first_letter": "N"
     }
 }
 
@@ -175,18 +173,24 @@ if "game_planet" not in st.session_state:
 target_planet = st.session_state["game_planet"]
 target_data = planets[target_planet]
 
-# จัดหน้าจอแสดงเงาดาวและคำใบ้
+# จัดรูปแบบกล่องเกมให้สว่างและสวยงาม
+st.markdown(f"""
+    <div class="game-container">
+        <h3 style="margin-top: 0; color: #240046;">🌑 เงาดาวปริศนา & คำใบ้</h3>
+        <hr style="border-color: rgba(36,0,70,0.2);">
+    </div>
+""", unsafe_allow_html=True)
+
 col_shadow, col_clue = st.columns([1, 2])
 
 with col_shadow:
-    st.markdown("**🌑 เงาดาวปริศนา:**")
-    st.markdown(f'<img src="{target_data["image"]}" class="planet-shadow">', unsafe_allow_html=True)
+    st.markdown(f'<img src="{target_data["image"]}" class="planet-silhouette">', unsafe_allow_html=True)
 
 with col_clue:
     st.markdown(f"""
-        <div class="game-box" style="margin-bottom: 10px; padding: 15px;">
-            <p style="color: #240046; margin: 0; font-size: 1.1rem;"><b>🔍 คำใบ้:</b> {target_data['clue']}</p>
-            <p style="color: #d90429; margin: 5px 0 0 0; font-size: 1rem;"><b>🔤 ตัวอักษรตัวแรก:</b> {target_data['first_letter']}</p>
+        <div style="background-color: white; padding: 20px; border-radius: 10px; border: 1px solid #ddd; height: 100%;">
+            <p style="color: #240046; font-size: 1.1rem; margin-top: 0;"><b>🔍 คำใบ้:</b> {target_data['clue']}</p>
+            <p style="color: #d90429; font-size: 1.05rem; margin-bottom: 0;"><b>🔤 ตัวอักษรภาษาอังกฤษตัวแรก:</b> {target_data['first_letter']}</p>
         </div>
     """, unsafe_allow_html=True)
 

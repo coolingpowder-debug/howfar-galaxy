@@ -112,13 +112,21 @@ planets = {
     }
 }
 
-# Sidebar สำหรับฟีเจอร์คำนวณน้ำหนัก
-st.sidebar.header("⚖️ เครื่องคำนวณน้ำหนักนอกโลก")
-user_weight = st.sidebar.number_input("ใส่น้ำหนักของคุณบนโลก (กิโลกรัม):", min_value=1.0, max_value=300.0, value=60.0)
-st.sidebar.write("น้ำหนักของคุณบนดาวดวงอื่น ๆ:")
+# Sidebar สำหรับเครื่องมือคำนวณ
+st.sidebar.header("🛠️ เครื่องมือจำลองอวกาศ")
+
+# ฟีเจอร์ที่ 1: คำนวณน้ำหนัก
+st.sidebar.subheader("⚖️ คำนวณน้ำหนักนอกโลก")
+user_weight = st.sidebar.number_input("น้ำหนักของคุณบนโลก (กก.):", min_value=1.0, max_value=300.0, value=60.0)
 for planet_name, info in planets.items():
-    calculated_weight = user_weight * info["gravity"]
-    st.sidebar.text(f"{planet_name.split(' ')[0]}: {calculated_weight:.1f} กก.")
+    calc_weight = user_weight * info["gravity"]
+    st.sidebar.text(f"{planet_name.split(' ')[0]}: {calc_weight:.1f} กก.")
+
+st.sidebar.divider()
+
+# ฟีเจอร์ที่ 2: วัดความสูงการกระโดด
+st.sidebar.subheader("🦘 วัดความสูงการกระโดด")
+jump_earth = st.sidebar.number_input("ปกติคุณกระโดดบนโลกสูง (ซม.):", min_value=5.0, max_value=200.0, value=40.0)
 
 # ส่วนหัวของเว็บไซต์
 st.title("🌌 สำรวจระบบสุริยะของเรา")
@@ -143,16 +151,30 @@ with col1:
             <p class="metric-title">📐 ขนาดเส้นผ่านศูนย์กลาง:</p>
             <p>{p_data['size']}</p>
             <p class="metric-title">✨ เกร็ดความรู้:</p>
-            <p>{p_data['fun_fact']}</p>
+            <p>{p_data['fun_fact']}ค</p>
         </div>
     """, unsafe_allow_html=True)
 
 with col2:
     st.image(p_data["image"], caption=f"ภาพถ่าย {selected_planet}", use_container_width=True)
 
+# ส่วนกราฟิกเปรียบเทียบความสูงการกระโดด (เพิ่มใหม่)
+st.subheader("📊 กราฟิกเปรียบเทียบความสูงในการกระโดดแต่ละดาวเคราะห์")
+st.write(f"อ้างอิงจากความสูงที่คุณกระโดดบนโลกได้ **{jump_earth} ซม.**")
+
+# เตรียมข้อมูลสำหรับทำกราฟ
+jump_data = []
+for planet_name, info in planets.items():
+    h_val = round(jump_earth / info["gravity"], 1)
+    short_name = planet_name.split(" ")[0]
+    jump_data.append({"ดาวเคราะห์": short_name, "ความสูง (ซม.)": h_val})
+
+df_jump = pd.DataFrame(jump_data).set_index("ดาวเคราะห์")
+st.bar_chart(df_jump)
+
 # ส่วนเปรียบเทียบภาพรวมทั้งหมดในรูปตาราง พร้อมแผนภาพเปรียบเทียบระยะทางกับโลก
 st.subheader("📊 ตารางเปรียบเทียบสรุปขนาดและระยะทางกับโลก")
-df = pd.DataFrame([
+df_table = pd.DataFrame([
     {
         "ดาวเคราะห์": k, 
         "ประเภท": v["type"], 
@@ -162,4 +184,4 @@ df = pd.DataFrame([
     }
     for k, v in planets.items()
 ])
-st.table(df)
+st.table(df_table)

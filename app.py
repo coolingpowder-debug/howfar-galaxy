@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import random
 
 # ตั้งค่าหน้าเว็บ
 st.set_page_config(
@@ -28,10 +29,17 @@ st.markdown("""
         color: #00d2ff;
         font-weight: bold;
     }
+    .game-box {
+        background-color: rgba(0, 210, 255, 0.1);
+        border: 2px dashed #00d2ff;
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# ข้อมูลดาวเคราะห์พร้อมลิงก์ภาพที่เสถียร
+# ข้อมูลดาวเคราะห์พร้อมคำใบ้สำหรับเกม
 planets = {
     "ดาวพุธ (Mercury)": {
         "icon": "☿️",
@@ -42,7 +50,8 @@ planets = {
         "desc": "ดาวเคราะห์ที่อยู่ใกล้ดวงอาทิตย์ที่สุดและมีขนาดเล็กที่สุดในระบบสุริยะ",
         "fun_fact": "พื้นผิวมีหลุมอุกกาบาตคล้ายดวงจันทร์ และมีอุณหภูมิร้อนจัดสลับหนาวจัด",
         "image": "https://images-assets.nasa.gov/image/PIA16847/PIA16847~orig.jpg",
-        "bar": "🌍---🪐 (ใกล้กว่าโลก)"
+        "bar": "🌍---🪐 (ใกล้กว่าโลก)",
+        "clue": "ฉันอยู่ใกล้ดวงอาทิตย์ที่สุด มีขนาดเล็กจิ๋ว และพื้นผิวเต็มไปด้วยหลุมอุกกาบาตคล้ายดวงจันทร์!"
     },
     "ดาวศุกร์ (Venus)": {
         "icon": "♀️",
@@ -53,7 +62,8 @@ planets = {
         "desc": "ดาวเคราะห์ที่มีขนาดใกล้เคียงกับโลกมากที่สุด แต่ร้อนที่สุดในระบบสุริยะ",
         "fun_fact": "หมุนรอบตัวเองกลับทิศทางกับดาวเคราะห์ส่วนใหญ่ และมีชั้นบรรยากาศหนาทึบ",
         "image": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg",
-        "bar": "🌍---🪐 (ใกล้กว่ามาก)"
+        "bar": "🌍---🪐 (ใกล้กว่ามาก)",
+        "clue": "ฉันมีขนาดใกล้เคียงกับโลกมากที่สุด แต่กลับร้อนระอุที่สุดในระบบสุริยะแถมยังหมุนกลับทิศทาง!"
     },
     "ดาวอังคาร (Mars)": {
         "icon": "♂️",
@@ -64,7 +74,8 @@ planets = {
         "desc": "ดาวเคราะห์แดงที่เป็นเป้าหมายสำคัญในการสำรวจสิ่งมีชีวิตนอกโลก",
         "fun_fact": "มีภูเขาไฟที่สูงที่สุดในระบบสุริยะชื่อ โอลิมปัส มอนส์",
         "image": "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg",
-        "bar": "🌍-----🪐"
+        "bar": "🌍-----🪐",
+        "clue": "ฉันคือดาวเคราะห์สีแดง มีภูเขาไฟที่สูงที่สุดในระบบสุริยะ และนักวิทยาศาสตร์กำลังสนใจไปตั้งถิ่นฐาน!"
     },
     "ดาวพฤหัสบดี (Jupiter)": {
         "icon": "♃",
@@ -75,7 +86,8 @@ planets = {
         "desc": "ดาวเคราะห์ที่ใหญ่ที่สุดในระบบสุริยะของเรา",
         "fun_fact": "มีจุดแดงใหญ่ (Great Red Spot) ซึ่งเป็นพายุหมุนยักษ์ที่มีขนาดใหญ่กว่าโลก",
         "image": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg",
-        "bar": "🌍------------🪐"
+        "bar": "🌍------------🪐",
+        "clue": "ฉันคือพี่ใหญ่แห่งระบบสุริยะ เป็นดาวเคราะห์แก๊สยักษ์ที่มีพายุจุดแดงใหญ่หมุนวนอยู่!"
     },
     "ดาวเสาร์ (Saturn)": {
         "icon": "♄",
@@ -86,7 +98,8 @@ planets = {
         "desc": "โดดเด่นด้วยวงแหวนน้ำแข็งขนาดใหญ่ที่สวยงามและสังเกตเห็นได้ชัดเจน",
         "fun_fact": "มีความหนาแน่นน้อยกว่าน้ำ ถ้ามีอ่างน้ำขนาดใหญ่พอก็จะลอยน้ำได้",
         "image": "https://images-assets.nasa.gov/image/PIA01384/PIA01384~orig.jpg",
-        "bar": "🌍-----------------🪐"
+        "bar": "🌍-----------------🪐",
+        "clue": "ฉันโดดเด่นไม่เหมือนใครเพราะมีวงแหวนน้ำแข็งล้อมรอบสวยงาม และมีความหนาแน่นน้อยจนลอยน้ำได้!"
     },
     "ดาวยูเรนัส (Uranus)": {
         "icon": "♅",
@@ -97,7 +110,8 @@ planets = {
         "desc": "ดาวเคราะห์สีฟ้าอมเขียวที่มีแกนเอียงราบเกือบขนานกับวงโคจร",
         "fun_fact": "หมุนรอบตัวเองในลักษณะ 'นอนกลิ้ง' ไปบนวงโคจร",
         "image": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg",
-        "bar": "🌍------------------------------🪐"
+        "bar": "🌍------------------------------🪐",
+        "clue": "ฉันเป็นดาวเคราะห์สีฟ้าอมเขียวที่แปลกประหลาด เพราะหมุนรอบตัวเองในลักษณะ 'นอนกลิ้ง'!"
     },
     "ดาวเนปจูน (Neptune)": {
         "icon": "♆",
@@ -108,14 +122,14 @@ planets = {
         "desc": "ดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลจากดวงอาทิตย์ที่สุดในระบบสุริยะ",
         "fun_fact": "มีกระแสลมที่รุนแรงและเร็วที่สุดในระบบสุริยะ",
         "image": "https://images-assets.nasa.gov/image/PIA01492/PIA01492~orig.jpg",
-        "bar": "🌍----------------------------------------🪐"
+        "bar": "🌍----------------------------------------🪐",
+        "clue": "ฉันเป็นดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลสุดขอบระบบสุริยะ และมีกระแสลมที่รุนแรงที่สุด!"
     }
 }
 
 # Sidebar สำหรับเครื่องมือคำนวณ
 st.sidebar.header("🛠️ เครื่องมือจำลองอวกาศ")
 
-# ฟีเจอร์ที่ 1: คำนวณน้ำหนัก
 st.sidebar.subheader("⚖️ คำนวณน้ำหนักนอกโลก")
 user_weight = st.sidebar.number_input("น้ำหนักของคุณบนโลก (กก.):", min_value=1.0, max_value=300.0, value=60.0)
 for planet_name, info in planets.items():
@@ -124,7 +138,6 @@ for planet_name, info in planets.items():
 
 st.sidebar.divider()
 
-# ฟีเจอร์ที่ 2: วัดความสูงการกระโดด
 st.sidebar.subheader("🦘 วัดความสูงการกระโดด")
 jump_earth = st.sidebar.number_input("ปกติคุณกระโดดบนโลกสูง (ซม.):", min_value=5.0, max_value=200.0, value=40.0)
 
@@ -133,10 +146,46 @@ st.title("🌌 สำรวจระบบสุริยะของเรา")
 st.write("เรียนรู้ระยะห่าง ขนาดเปรียบเทียบ และชมภาพถ่ายของดาวเคราะห์แต่ละดวงกับ **โลก** กันเถอะ!")
 st.divider()
 
-# แถบคลิกเลือกดาวเคราะห์หลัก
+# --- ส่วนมินิเกมทายดาวเคราะห์ ---
+st.subheader("🎮 มินิเกม: ทายซิฉันคือดาวอะไร?")
+
+# ใช้ session_state สุ่มคำถามเพื่อให้เกมไม่เปลี่ยนเองเวลาผู้ใช้กดปุ่ม
+if "game_planet" not in st.session_state:
+    st.session_state["game_planet"] = random.choice(list(planets.keys()))
+
+target_planet = st.session_state["game_planet"]
+target_clue = planets[target_planet]["clue"]
+
+st.markdown(f"""
+    <div class="game-box">
+        <h3>🔍 คำใบ้ปริศนา:</h3>
+        <p style="font-size: 1.2rem; color: #ffdd59;"><b>"{target_clue}"</b></p>
+    </div>
+""", unsafe_allow_html=True)
+
+col_game1, col_game2 = st.columns([2, 1])
+with col_game1:
+    user_guess = st.selectbox("เลือกคำตอบของคุณ:", ["--- กรุณาเลือกดาวเคราะห์ ---"] + list(planets.keys()), key="guess_box")
+
+with col_game2:
+    st.write("") # จัดตำแหน่งปุ่มให้ตรงกัน
+    st.write("")
+    if st.button("🎯 ตรวจคำตอบ"):
+        if user_guess == "--- กรุณาเลือกดาวเคราะห์ ---":
+            st.warning("⚠️ โปรดเลือกคำตอบก่อนกดตรวจครับ!")
+        elif user_guess == target_planet:
+            st.success(f"🎉 ถูกต้องนะคร้าบ! นี่คือ {target_planet} เก่งมากเลย!")
+            if st.button("🔄 สุ่มคำถามใหม่"):
+                st.session_state["game_planet"] = random.choice(list(planets.keys()))
+                st.rerun()
+        else:
+            st.error(f"❌ ยังไม่ถูกครับ ลองใหม่อีกครั้งนะ!")
+
+st.divider()
+
+# แถบคลิกเลือกดาวเคราะห์หลักเพื่อศึกษาข้อมูล
 selected_planet = st.selectbox("🪐 เลือกดาวเคราะห์ที่คุณต้องการสำรวจ:", list(planets.keys()))
 
-# จัดหน้าจอแสดงผลข้อมูลคู่กับรูปภาพ
 p_data = planets[selected_planet]
 col1, col2 = st.columns([1.2, 1])
 
@@ -151,18 +200,17 @@ with col1:
             <p class="metric-title">📐 ขนาดเส้นผ่านศูนย์กลาง:</p>
             <p>{p_data['size']}</p>
             <p class="metric-title">✨ เกร็ดความรู้:</p>
-            <p>{p_data['fun_fact']}ค</p>
+            <p>{p_data['fun_fact']}</p>
         </div>
     """, unsafe_allow_html=True)
 
 with col2:
     st.image(p_data["image"], caption=f"ภาพถ่าย {selected_planet}", use_container_width=True)
 
-# ส่วนกราฟิกเปรียบเทียบความสูงการกระโดด (เพิ่มใหม่)
+# ส่วนกราฟิกเปรียบเทียบความสูงการกระโดด
 st.subheader("📊 กราฟิกเปรียบเทียบความสูงในการกระโดดแต่ละดาวเคราะห์")
 st.write(f"อ้างอิงจากความสูงที่คุณกระโดดบนโลกได้ **{jump_earth} ซม.**")
 
-# เตรียมข้อมูลสำหรับทำกราฟ
 jump_data = []
 for planet_name, info in planets.items():
     h_val = round(jump_earth / info["gravity"], 1)
@@ -172,7 +220,7 @@ for planet_name, info in planets.items():
 df_jump = pd.DataFrame(jump_data).set_index("ดาวเคราะห์")
 st.bar_chart(df_jump)
 
-# ส่วนเปรียบเทียบภาพรวมทั้งหมดในรูปตาราง พร้อมแผนภาพเปรียบเทียบระยะทางกับโลก
+# ส่วนเปรียบเทียบภาพรวมทั้งหมดในรูปตาราง
 st.subheader("📊 ตารางเปรียบเทียบสรุปขนาดและระยะทางกับโลก")
 df_table = pd.DataFrame([
     {

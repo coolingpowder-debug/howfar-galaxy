@@ -31,7 +31,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ข้อมูลดาวเคราะห์ (ใช้ลิงก์ภาพที่รองรับการแสดงผลผ่าน st.image โดยตรง)
+# ข้อมูลดาวเคราะห์
 planets = {
     "ดาวพุธ (Mercury)": {
         "icon": "☿️",
@@ -41,7 +41,8 @@ planets = {
         "gravity": 0.38,
         "desc": "ดาวเคราะห์ที่อยู่ใกล้ดวงอาทิตย์ที่สุดและมีขนาดเล็กที่สุดในระบบสุริยะ",
         "fun_fact": "พื้นผิวมีหลุมอุกกาบาตคล้ายดวงจันทร์ และมีอุณหภูมิร้อนจัดสลับหนาวจัด",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_color_-_Prockter07_centered.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_color_-_Prockter07_centered.jpg",
+        "bar": "🌍---🪐 (ใกล้กว่าโลก)"
     },
     "ดาวศุกร์ (Venus)": {
         "icon": "♀️",
@@ -51,7 +52,8 @@ planets = {
         "gravity": 0.91,
         "desc": "ดาวเคราะห์ที่มีขนาดใกล้เคียงกับโลกมากที่สุด แต่ร้อนที่สุดในระบบสุริยะ",
         "fun_fact": "หมุนรอบตัวเองกลับทิศทางกับดาวเคราะห์ส่วนใหญ่ และมีชั้นบรรยากาศหนาทึบ",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg",
+        "bar": "🌍---🪐 (ใกล้กว่ามาก)"
     },
     "ดาวอังคาร (Mars)": {
         "icon": "♂️",
@@ -61,7 +63,8 @@ planets = {
         "gravity": 0.38,
         "desc": "ดาวเคราะห์แดงที่เป็นเป้าหมายสำคัญในการสำรวจสิ่งมีชีวิตนอกโลก",
         "fun_fact": "มีภูเขาไฟที่สูงที่สุดในระบบสุริยะชื่อ โอลิมปัส มอนส์",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg",
+        "bar": "🌍-----🪐"
     },
     "ดาวพฤหัสบดี (Jupiter)": {
         "icon": "♃",
@@ -71,7 +74,8 @@ planets = {
         "gravity": 2.34,
         "desc": "ดาวเคราะห์ที่ใหญ่ที่สุดในระบบสุริยะของเรา",
         "fun_fact": "มีจุดแดงใหญ่ (Great Red Spot) ซึ่งเป็นพายุหมุนยักษ์ที่มีขนาดใหญ่กว่าโลก",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg",
+        "bar": "🌍------------🪐"
     },
     "ดาวเสาร์ (Saturn)": {
         "icon": "♄",
@@ -81,7 +85,8 @@ planets = {
         "gravity": 1.06,
         "desc": "โดดเด่นด้วยวงแหวนน้ำแข็งขนาดใหญ่ที่สวยงามและสังเกตเห็นได้ชัดเจน",
         "fun_fact": "มีความหนาแน่นน้อยกว่าน้ำ ถ้ามีอ่างน้ำขนาดใหญ่พอก็จะลอยน้ำได้",
-        "image": "https://images-assets.nasa.gov/image/PIA01384/PIA01384~orig.jpg"
+        "image": "https://images-assets.nasa.gov/image/PIA01384/PIA01384~orig.jpg",
+        "bar": "🌍-----------------🪐"
     },
     "ดาวยูเรนัส (Uranus)": {
         "icon": "♅",
@@ -91,7 +96,8 @@ planets = {
         "gravity": 0.92,
         "desc": "ดาวเคราะห์สีฟ้าอมเขียวที่มีแกนเอียงราบเกือบขนานกับวงโคจร",
         "fun_fact": "หมุนรอบตัวเองในลักษณะ 'นอนกลิ้ง' ไปบนวงโคจร",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg",
+        "bar": "🌍------------------------------🪐"
     },
     "ดาวเนปจูน (Neptune)": {
         "icon": "♆",
@@ -101,7 +107,8 @@ planets = {
         "gravity": 1.19,
         "desc": "ดาวเคราะห์สีน้ำเงินเข้มที่อยู่ไกลจากดวงอาทิตย์ที่สุดในระบบสุริยะ",
         "fun_fact": "มีกระแสลมที่รุนแรงและเร็วที่สุดในระบบสุริยะ",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full_-_Voyager_2_%2829347980848%29_%28cropped%29.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full_-_Voyager_2_%2829347980848%29_%28cropped%29.jpg",
+        "bar": "🌍----------------------------------------🪐"
     }
 }
 
@@ -121,7 +128,7 @@ st.divider()
 # แถบคลิกเลือกดาวเคราะห์หลัก
 selected_planet = st.selectbox("🪐 เลือกดาวเคราะห์ที่คุณต้องการสำรวจ:", list(planets.keys()))
 
-# จัดหน้าจอแสดงผลข้อมูลคู่กับรูปภาพโดยใช้ฟังก์ชันทางการของ Streamlit
+# จัดหน้าจอแสดงผลข้อมูลคู่กับรูปภาพ
 p_data = planets[selected_planet]
 col1, col2 = st.columns([1.2, 1])
 
@@ -143,14 +150,15 @@ with col1:
 with col2:
     st.image(p_data["image"], caption=f"ภาพถ่าย {selected_planet}", use_container_width=True)
 
-# ส่วนเปรียบเทียบภาพรวมทั้งหมดในรูปตาราง
+# ส่วนเปรียบเทียบภาพรวมทั้งหมดในรูปตาราง พร้อมแผนภาพเปรียบเทียบระยะทาง
 st.subheader("📊 ตารางเปรียบเทียบสรุปขนาดและระยะทางกับโลก")
 df = pd.DataFrame([
     {
         "ดาวเคราะห์": k, 
         "ประเภท": v["type"], 
         "ขนาดเทียบกับโลก": v["size"].split("(")[1].replace(")", ""), 
-        "ระยะห่างจากโลก": v["distance"].split("(")[0]
+        "ระยะห่างจากโลก": v["distance"].split("(")[0],
+        "แผนภาพระยะทางเทียบกับโลก": v["bar"]
     }
     for k, v in planets.items()
 ])

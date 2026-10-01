@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# ตกแต่ง CSS เพิ่มความสวยงามสไตล์อวกาศ
+# ตกแต่ง CSS เพิ่มความสวยงามสไตล์อวกาศ (ปรับสีข้อความคำใบ้เป็นม่วงเข้ม/น้ำเงินเข้ม)
 st.markdown("""
     <style>
     .main {
@@ -30,11 +30,16 @@ st.markdown("""
         font-weight: bold;
     }
     .game-box {
-        background-color: rgba(0, 210, 255, 0.1);
-        border: 2px dashed #00d2ff;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 2px solid #4a0e4e;
         padding: 25px;
         border-radius: 15px;
         margin-bottom: 25px;
+    }
+    .game-clue-text {
+        font-size: 1.2rem;
+        color: #240046; /* สีม่วงเข้ม/น้ำเงินเข้ม */
+        font-weight: bold;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -149,7 +154,6 @@ st.divider()
 # --- ส่วนมินิเกมทายดาวเคราะห์ ---
 st.subheader("🎮 มินิเกม: ทายซิฉันคือดาวอะไร?")
 
-# ใช้ session_state สุ่มคำถามเพื่อให้เกมไม่เปลี่ยนเองเวลาผู้ใช้กดปุ่ม
 if "game_planet" not in st.session_state:
     st.session_state["game_planet"] = random.choice(list(planets.keys()))
 
@@ -158,8 +162,8 @@ target_clue = planets[target_planet]["clue"]
 
 st.markdown(f"""
     <div class="game-box">
-        <h3>🔍 คำใบ้ปริศนา:</h3>
-        <p style="font-size: 1.2rem; color: #ffdd59;"><b>"{target_clue}"</b></p>
+        <h3 style="color: #240046; margin-top: 0;">🔍 คำใบ้ปริศนา:</h3>
+        <p class="game-clue-text">"{target_clue}"</p>
     </div>
 """, unsafe_allow_html=True)
 
@@ -168,7 +172,7 @@ with col_game1:
     user_guess = st.selectbox("เลือกคำตอบของคุณ:", ["--- กรุณาเลือกดาวเคราะห์ ---"] + list(planets.keys()), key="guess_box")
 
 with col_game2:
-    st.write("") # จัดตำแหน่งปุ่มให้ตรงกัน
+    st.write("") 
     st.write("")
     if st.button("🎯 ตรวจคำตอบ"):
         if user_guess == "--- กรุณาเลือกดาวเคราะห์ ---":

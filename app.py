@@ -2,7 +2,7 @@ import streamlit as st
 
 # ตั้งค่าหน้าเว็บ
 st.set_page_config(
-    page_title="ท่อง 
+    page_title="ท่องระบบสุริยะ",
     page_icon="🪐",
     layout="wide"
 )

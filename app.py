@@ -37,20 +37,20 @@ st.markdown("""
         margin-bottom: 25px;
         color: #240046;
     }
-    /* ปรับเงาดาวให้เห็นเค้าโครงและวงแหวนชัดเจนบนพื้นสว่าง */
-    .planet-silhouette {
-        filter: brightness(0%) contrast(100%) opacity(85%);
-        width: 100%;
-        max-height: 220px;
-        object-fit: contain;
-        background-color: #f0f0f0;
-        padding: 10px;
-        border-radius: 10px;
+    .shadow-box {
+        background-color: #1a1a2e;
+        border: 3px dashed #00d2ff;
+        text-align: center;
+        padding: 30px;
+        border-radius: 12px;
+        font-size: 5rem;
+        color: #ffffff;
+        box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
     }
     </style>
 """, unsafe_allow_html=True)
 
-# ข้อมูลดาวเคราะห์พร้อมคำใบ้ ตัวอักษรภาษาอังกฤษตัวแรก และเงา
+# ข้อมูลดาวเคราะห์พร้อมไอคอนเงา ตัวอักษรภาษาอังกฤษตัวแรก และคำใบ้
 planets = {
     "ดาวพุธ (Mercury)": {
         "icon": "☿️",
@@ -173,10 +173,9 @@ if "game_planet" not in st.session_state:
 target_planet = st.session_state["game_planet"]
 target_data = planets[target_planet]
 
-# จัดรูปแบบกล่องเกมให้สว่างและสวยงาม
 st.markdown(f"""
     <div class="game-container">
-        <h3 style="margin-top: 0; color: #240046;">🌑 เงาดาวปริศนา & คำใบ้</h3>
+        <h3 style="margin-top: 0; color: #240046;">🌑 ปริศนาเงาดาวเคราะห์</h3>
         <hr style="border-color: rgba(36,0,70,0.2);">
     </div>
 """, unsafe_allow_html=True)
@@ -184,7 +183,8 @@ st.markdown(f"""
 col_shadow, col_clue = st.columns([1, 2])
 
 with col_shadow:
-    st.markdown(f'<img src="{target_data["image"]}" class="planet-silhouette">', unsafe_allow_html=True)
+    # ใช้กล่องเงาไอคอนแสดงแทนเพื่อความเสถียร 100%
+    st.markdown(f'<div class="shadow-box">🪐</div>', unsafe_allow_html=True)
 
 with col_clue:
     st.markdown(f"""

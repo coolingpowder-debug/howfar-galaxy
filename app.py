@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# ตกแต่ง CSS เพิ่มความสวยงามสไตล์อวกาศ (ปรับสีข้อความคำใบ้เป็นม่วงเข้ม/น้ำเงินเข้ม)
+# ตกแต่ง CSS เพิ่มความสวยงามสไตล์อวกาศ
 st.markdown("""
     <style>
     .main {
@@ -38,7 +38,7 @@ st.markdown("""
     }
     .game-clue-text {
         font-size: 1.2rem;
-        color: #240046; /* สีม่วงเข้ม/น้ำเงินเข้ม */
+        color: #240046;
         font-weight: bold;
     }
     </style>
@@ -167,7 +167,8 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-col_game1, col_game2 = st.columns([2, 1])
+col_game1, col_game2, col_game3 = st.columns([2, 1, 1])
+
 with col_game1:
     user_guess = st.selectbox("เลือกคำตอบของคุณ:", ["--- กรุณาเลือกดาวเคราะห์ ---"] + list(planets.keys()), key="guess_box")
 
@@ -178,12 +179,16 @@ with col_game2:
         if user_guess == "--- กรุณาเลือกดาวเคราะห์ ---":
             st.warning("⚠️ โปรดเลือกคำตอบก่อนกดตรวจครับ!")
         elif user_guess == target_planet:
-            st.success(f"🎉 ถูกต้องนะคร้าบ! นี่คือ {target_planet} เก่งมากเลย!")
-            if st.button("🔄 สุ่มคำถามใหม่"):
-                st.session_state["game_planet"] = random.choice(list(planets.keys()))
-                st.rerun()
+            st.success(f"🎉 ถูกต้องนะคร้าบ! นี่คือ {target_planet} เก่งมาก!")
         else:
-            st.error(f"❌ ยังไม่ถูกครับ ลองใหม่อีกครั้งนะ!")
+            st.error(f"❌ ยังไม่ถูก ลองใหม่อีกครั้ง!")
+
+with col_game3:
+    st.write("")
+    st.write("")
+    if st.button("🔄 เปลี่ยนคำถาม"):
+        st.session_state["game_planet"] = random.choice(list(planets.keys()))
+        st.rerun()
 
 st.divider()
 
